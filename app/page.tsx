@@ -44,7 +44,7 @@ export default function Home() {
         const content = e.target?.result as string;
         const parsedChapters = parseChapters(content);
         setChapters(parsedChapters);
-        setActiveChapter(parsedChapters[0].id);
+        setActiveChapter(parsedChapters.length > 0 ? parsedChapters[0].id : "");
       };
       reader.readAsText(file);
     }
@@ -52,7 +52,7 @@ export default function Home() {
 
   function parseChapters(text: string) {
     const chapterRegex =
-      /^(Chapter\s+(?:\d+|[IVXLCDM]+|[A-Za-z]+)(?::| -)?\s?.*)$/gim;
+      /^\s*Chapter\s+(?:\d+|[IVXLCDM]+|[A-Za-z]+)(?::| -)?\s?.*$/gim;
 
     const matches = Array.from(text.matchAll(chapterRegex));
 
